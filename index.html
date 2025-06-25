@@ -4,7 +4,525 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vadiya Kush - Full Stack Developer</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: all 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .hero-image img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin: 20px 0 10px;
+            color: #2c3e50;
+        }
+        
+        .hero h2 {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #555;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+        }
+        
+        .btn-outline {
+            border: 2px solid #3498db;
+            color: #3498db;
+        }
+        
+        .btn-outline:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Section Common Styles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #3498db;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .info-list {
+            margin-top: 30px;
+            list-style: none;
+        }
+        
+        .info-list li {
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+        
+        .info-list strong {
+            color: #2c3e50;
+            margin-right: 10px;
+        }
+        
+        /* Skills Section */
+        .skills {
+            padding: 100px 0;
+            background: #f9f9f9;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+        }
+        
+        .skill-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Experience Section */
+        .experience {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .experience-item {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .experience-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .experience-date {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .experience-company {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .experience-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .experience-tech {
+            margin-top: 15px;
+        }
+        
+        .tech-tag {
+            display: inline-block;
+            background: #e0e0e0;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 100px 0;
+            background: #f9f9f9;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-img img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .project-content {
+            padding: 30px;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .project-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .project-link {
+            display: inline-block;
+            color: #3498db;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        
+        .project-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        .contact-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .contact-list h4 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 20px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            margin: 0 10px;
+            line-height: 40px;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: #3498db;
+            transform: translateY(-3px);
+        }
+        
+        .footer-text {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: all 0.5s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .mobile-menu.active .bar:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .mobile-menu.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu.active .bar:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .hero {
+                padding: 120px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -16,6 +534,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -65,6 +584,7 @@
                         <li><strong>Languages:</strong> Hindi, Gujarati, English</li>
                         <li><strong>Email:</strong> engkushpatelofficial@gmail.com</li>
                         <li><strong>Phone:</strong> +91 6352121330</li>
+                        <li><strong>Github:</strong> https://github.com/KaVipatel12 </li>
                     </ul>
                 </div>
             </div>
@@ -142,6 +662,45 @@
         </div>
     </section>
 
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Experience</h2>
+            </div>
+            <div class="experience-content">
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3 class="experience-title">Backend Developer Intern</h3>
+                        <span class="experience-date">2023 - Present</span>
+                    </div>
+                    <span class="experience-company">Tolet Globe</span>
+                    <p class="experience-description">
+                        As a Backend Developer Intern at Tolet Globe, I've contributed to building robust backend systems and APIs. My responsibilities include developing and maintaining server-side logic, ensuring high performance and responsiveness to front-end requests.
+                    </p>
+                    <ul class="experience-description" style="list-style-type: disc; padding-left: 20px;">
+                        <li>Tested and debugged backend code to ensure functionality and improve performance</li>
+                        <li>Built new controllers and enhanced APIs using Node.js, Express, and MongoDB</li>
+                        <li>Led the Intern team as Intern Head, assigning tasks and reviewing code submissions</li>
+                        <li>Collaborated closely with team members to ensure smooth workflow and communication</li>
+                        <li>Implemented JWT authentication for secure user access to the platform</li>
+                        <li>Integrated Google Maps API for location-based services</li>
+                    </ul>
+                    <div class="experience-tech">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">JWT Authentication</span>
+                        <span class="tech-tag">Google Maps API</span>
+                        <span class="tech-tag">Postman</span>
+                        <span class="tech-tag">Git</span>
+                    </div>
+                    <a href="https://github.com/toletglobe" class="project-link" target="_blank">View Company GitHub →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
@@ -155,7 +714,7 @@
                     </div>
                     <div class="project-content">
                         <h3>Lernify - The Education App</h3>
-                        <p>A full-featured online education platform built using Next.js, Node.js, MongoDB, and Tailwind CSS, designed to deliver high-quality courses in programming, AI, design, business, and more. The app allows users to browse, purchase, and enroll in curated video courses. It supports role-based access for educators and students, with a modern, responsive UI and secure authentication.</p>
+                        <p>A full-featured online education platform built using Next.js, Node.js, MongoDB, and Tailwind CSS, designed to deliver high-quality courses in programming, AI, design, business, and more.</p>
                         <div class="project-tech">
                             <span class="tech-tag">Next Js</span>
                             <span class="tech-tag">Cloudinary</span>
@@ -164,13 +723,12 @@
                             <span class="tech-tag">Node.js</span>
                         </div>
                         <p>
-                            This Education App is a full-stack learning platform that allows users to browse, purchase, and access online courses in various categories like programming, design, AI, and business. It features secure JWT-based authentication, role-based access for educators and learners, and a seamless course enrollment system. Educators can create, edit, and manage their courses with multiple sections and lectures, while learners can rate and review courses, view their enrolled content, and track progress. The app also includes personalized dashboards, dynamic routing, a modern responsive UI with Tailwind CSS and Ant Design, and integration with a MongoDB backend through a RESTful API.
-                            </p>
-
-                        <a href="https://learningapp-nextjs.vercel.app" class="project-link">View Project →</a>
+                            This Education App is a full-stack learning platform that allows users to browse, purchase, and access online courses. It features secure JWT-based authentication, role-based access for educators and learners, and a seamless course enrollment system.
+                        </p>
+                        <a href="https://learningapp-nextjs.vercel.app" class="project-link" target="_blank">View Project →</a>
                     </div>
                 </div>
-            <div class="project-grid">
+                
                 <div class="project-card">
                     <div class="project-img">
                         <img src="/public/eminance.jpg" alt="Eminance App">
@@ -185,7 +743,7 @@
                             <span class="tech-tag">Node.js</span>
                         </div>
                         <p>Key features include user authentication, event registration, participant tracking, admin dashboard for event management, real-time notifications, and responsive design for all devices.</p>
-                        <a href="https://event2025eminance.netlify.app " class="project-link">View Project →</a>
+                        <a href="https://event2025eminance.netlify.app" class="project-link" target="_blank">View Project →</a>
                     </div>
                 </div>
 
@@ -203,7 +761,7 @@
                             <span class="tech-tag">MongoDB</span>
                         </div>
                         <p>Features include hierarchical file structure, drag-and-drop organization, file sharing with permission controls, search functionality, and real-time collaboration capabilities.</p>
-                        <a href="https://docsnest.netlify.app" class="project-link">View Project →</a>
+                        <a href="https://docsnest.netlify.app" class="project-link" target="_blank">View Project →</a>
                     </div>
                 </div>
 
@@ -219,7 +777,7 @@
                             <span class="tech-tag">AWS</span>
                         </div>
                         <p>Planned features include advanced course search algorithms, video streaming, progress tracking, payment integration, rating and review system, and personalized learning recommendations.</p>
-                        <a href="https://github.com/KaVipatel12/learning_app_beckend_onworking" class="project-link">Coming Soon →</a>
+                        <a href="https://github.com/KaVipatel12/learning_app_beckend_onworking" class="project-link" target="_blank">View on GitHub →</a>
                     </div>
                 </div>
             </div>
@@ -314,6 +872,16 @@
                     });
                 }
             });
+        });
+
+        // Add fixed header on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
         });
     </script>
 </body>
