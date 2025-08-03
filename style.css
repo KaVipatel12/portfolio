@@ -470,6 +470,11 @@
         .contact {
             padding: 100px 0;
             background: white;
+            
+        }
+        .contact a{
+            text-decoration: none;
+            color: #2c3e50
         }
         
         .contact-container {
