@@ -666,10 +666,19 @@
             });
         });
 
-        // Mobile Menu Toggle
+        // ===================================
+        // INTERACTIVE NAVBAR WITH SCROLL EFFECTS
+        // ===================================
+
         document.addEventListener('DOMContentLoaded', function () {
             const mobileMenu = document.querySelector('.mobile-menu');
             const navLinks = document.querySelector('.nav-links');
+            const header = document.querySelector('header');
+            const navLinkItems = document.querySelectorAll('.nav-links a');
+
+            // ===================================
+            // MOBILE MENU TOGGLE
+            // ===================================
 
             mobileMenu.addEventListener('click', function () {
                 this.classList.toggle('active');
@@ -677,14 +686,119 @@
             });
 
             // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
+            navLinkItems.forEach(link => {
                 link.addEventListener('click', function () {
                     mobileMenu.classList.remove('active');
                     navLinks.classList.remove('active');
                 });
             });
 
-            // Make contact links clickable
+            // ===================================
+            // SCROLL EFFECTS FOR NAVBAR
+            // ===================================
+
+            let lastScroll = 0;
+            const scrollThreshold = 100;
+
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+
+                // Add scrolled class for styling changes
+                if (currentScroll > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+
+                // Hide navbar on scroll down, show on scroll up
+                if (currentScroll > scrollThreshold) {
+                    if (currentScroll > lastScroll && currentScroll > 300) {
+                        // Scrolling down
+                        header.classList.add('nav-hidden');
+                    } else {
+                        // Scrolling up
+                        header.classList.remove('nav-hidden');
+                    }
+                }
+
+                lastScroll = currentScroll;
+
+                // Update active navigation link
+                updateActiveNavLink();
+
+                // Update progress bar
+                updateProgressBar();
+            });
+
+            // ===================================
+            // ACTIVE SECTION HIGHLIGHTING
+            // ===================================
+
+            function updateActiveNavLink() {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollPosition = window.pageYOffset + 200;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navLinkItems.forEach(link => {
+                            link.classList.remove('active');
+                        });
+
+                        const activeLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }
+
+            // ===================================
+            // SCROLL PROGRESS BAR
+            // ===================================
+
+            const progressBar = document.createElement('div');
+            progressBar.className = 'scroll-progress';
+            header.appendChild(progressBar);
+
+            function updateProgressBar() {
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (window.pageYOffset / windowHeight) * 100;
+                progressBar.style.width = scrolled + '%';
+            }
+
+            // ===================================
+            // SMOOTH SCROLL WITH OFFSET
+            // ===================================
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        const headerHeight = header.offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // ===================================
+            // MAKE CONTACT LINKS CLICKABLE
+            // ===================================
+
             document.querySelectorAll('.contact-list p').forEach(item => {
                 if (item.textContent.includes('@') || item.textContent.includes('http')) {
                     const text = item.textContent;
@@ -701,16 +815,10 @@
                     item.appendChild(link);
                 }
             });
-        });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+            // Initialize on page load
+            updateActiveNavLink();
+            updateProgressBar();
         });
     </script>
 </body>
