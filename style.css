@@ -1,14 +1,32 @@
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            line-height: 1.6;
-            color: #333;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+}
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --secondary: #8b5cf6;
+    --accent: #ede9fe;
+    --dark: #0f172a;
+    --text: #334155;
+    --text-light: #64748b;
+    --border: #e0e7ff;
+    --bg: #f8fafc;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--text);
+    background: white;
+}
         
         .container {
             width: 90%;
@@ -74,12 +92,43 @@
             transition: all 0.3s;
         }
         
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            text-align: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
+/* Hero Section */
+.hero {
+    padding: 150px 0 100px;
+    text-align: center;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 50%, #f0f4ff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+    top: -250px;
+    right: -250px;
+    border-radius: 50%;
+    animation: float 20s ease-in-out infinite;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    bottom: -150px;
+    left: -150px;
+    border-radius: 50%;
+    animation: float 15s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, 30px) scale(1.1); }
+}
         
         .hero-image img {
             width: 200px;
@@ -119,24 +168,27 @@
         }
         
         .btn-primary {
-            background: #3498db;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
-        
+
         .btn-primary:hover {
-            background: #2980b9;
             transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
         }
-        
+
         .btn-outline {
-            border: 2px solid #3498db;
-            color: #3498db;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: white;
         }
-        
+
         .btn-outline:hover {
-            background: #3498db;
+            background: var(--primary);
             color: white;
             transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
         
         /* Section Common Styles */
@@ -468,11 +520,156 @@
         columns: 1;
     }
 }
+        /* Certifications Section */
+.certifications {
+    padding: 100px 0;
+    background: #f9f9f9;
+}
+
+.certifications-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.certificate-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    background: #fff;
+}
+
+.certificate-item img {
+    width: 100%;
+    height: 350px;
+    object-fit: contain;
+    display: block;
+    background: #f8f9fa;
+    padding: 15px;
+}
+
+.certificate-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7), transparent);
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.certificate-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.certificate-item:hover .certificate-overlay {
+    transform: translateY(0);
+}
+
+.certificate-overlay h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.certificate-overlay p {
+    color: #e0e0e0;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Certificate Modal */
+.certificate-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    color: #fff;
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    color: #f43f5e;
+    transform: rotate(90deg);
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.modal-caption {
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+    max-width: 700px;
+    margin: 20px auto 0;
+}
+
+.modal-caption h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.modal-caption p {
+    font-size: 16px;
+    color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    .certifications-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .certificate-item img {
+        height: 280px;
+    }
+
+    .modal-close {
+        top: 15px;
+        right: 20px;
+        font-size: 35px;
+    }
+
+    .modal-content {
+        max-width: 95%;
+        max-height: 80vh;
+    }
+}
+
         /* Contact Section */
         .contact {
             padding: 100px 0;
             background: white;
-            
+
         }
         .contact a{
             text-decoration: none;
