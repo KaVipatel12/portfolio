@@ -901,7 +901,7 @@ section {
 }
 
 .project-card:hover .project-img::before {
-    opacity: 1;
+    opacity: 0;
 }
 
 .project-img img {
